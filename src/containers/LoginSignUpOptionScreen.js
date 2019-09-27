@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import BaseComponent from '../common/components/BaseComponent'
 import * as Colors from '../common/values/Colors'
 import * as fonts from '../common/values/fonts'
+import * as Dimens from '../common/values/Dimens'
 import { strings } from '../i18n/i18n';
 import * as Constants from '../common/values/Constants'
 import CommonHeader from '../common/components/CommonHeader'
@@ -15,7 +16,7 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
         this.props.navigation.navigate(Constants.SCREEN_LOGIN, {});
     }
     onSignUpCLick = () => {
-
+        this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
     }
 
     render() {
@@ -24,6 +25,7 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                 alignSelf='flex-start'
                 headerBg={Colors.white}
                 tintColor={Colors.colorAccent}
+                isRTLIconVisibile={false}
                 leftIconPress={this.handleBackButtonClick}
                 leftICImagePath={require('../../assets/images/back.png')}
             />
@@ -34,28 +36,30 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                         source={require('../../assets/images/user.png')}
                         tintColor={Colors.colorPrimary}
                     ></Image>
-                    <View style={{flexDirection:'row',marginTop:20}}>
-                    <CommonText title={strings('welcomeTO')}
-                        fontFamily={fonts.font_medium }
-                        fontSize={40}
-                        color={Colors.textColor}></CommonText>
+                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                        <CommonText title={strings('welcomeTO')}
+                            fontFamily={fonts.font_medium}
+                            fontSize={Dimens.px_35}
+                            color={Colors.textColor}></CommonText>
                         <CommonText title={strings('Rayei')}
-                        fontFamily={fonts.font_bold}
-                        fontSize={40}
-                        marginStart={8}
-                        color={Colors.colorAccent}></CommonText>
+                            fontFamily={fonts.font_bold}
+                            fontSize={Dimens.px_35}
+                            marginStart={8}
+                            color={Colors.colorAccent}></CommonText>
                     </View>
-                   
+
                 </View>
                 <View style={{
                     flex: .45, backgroundColor: Colors.colorPrimary, borderTopStartRadius: 25,
-                    borderTopEndRadius: 25, alignItems: 'center', justifyContent: 'center', elevation: 5
+                    borderTopEndRadius: 25, alignItems: 'center', justifyContent: 'center', elevation: 5,
+                    paddingLeft: Dimens.px_35, paddingRight: Dimens.px_35
                 }}>
                     <CommonButton
                         fontFamily={fonts.font_medium}
                         onButtonPress={this.onLoginCLick}
                         backgroundColor={Colors.colorAccent}
-                        buttonWidth={'85%'}
+                        buttonWidth={'100%'}
+                        buttonHeight={Dimens.px_60}
                         marginTop={10}
                         title={strings('login')}
                         textColor={Colors.white}
@@ -65,7 +69,8 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                         fontFamily={fonts.font_medium}
                         onButtonPress={this.onSignUpCLick}
                         backgroundColor={Colors.colorAccent}
-                        buttonWidth={'85%'}
+                        buttonWidth={'100%'}
+                        buttonHeight={Dimens.px_60}
                         marginTop={30}
                         title={strings('signup')}
                         textColor={Colors.white}

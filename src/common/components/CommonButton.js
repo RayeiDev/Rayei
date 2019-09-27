@@ -21,7 +21,7 @@ class CommonButton extends BaseComponent {
 
 
     render() {
-        const { fontFamily, onButtonPress, backgroundColor, buttonWidth, marginTop, title, textColor } = this.props;
+        const { fontFamily, onButtonPress, backgroundColor, buttonWidth,buttonHeight, marginTop, title, textColor } = this.props;
         return (
 
             <TouchableOpacity style={{width:'100%',justifyContent: 'center',
@@ -30,7 +30,7 @@ class CommonButton extends BaseComponent {
                 activeOpacity={1}
             >
                 <View style={{
-                    width: buttonWidth, height: 60, backgroundColor: backgroundColor, justifyContent: 'center',
+                    width: buttonWidth, height: buttonHeight, backgroundColor: backgroundColor, justifyContent: 'center',
                     alignItems: 'center', marginTop: marginTop, elevation: 5, borderTopStartRadius: 10, borderTopEndRadius: 10,
                      borderBottomEndRadius: 10, borderBottomStartRadius: 10
                 }}>

@@ -10,17 +10,17 @@ import CommonHeader from '../common/components/CommonHeader'
 import CommonButton from '../common/components/CommonButton'
 import CommonText from '../common/components/CommonText'
 import CommonTextInput from '../common/components/CommonTextInput'
-export default class LoginScreen extends BaseComponent {
+export default class SignUpScreen extends BaseComponent {
 
     state = {
         emailUsername: '',
         password: '',
     }
 
-
-    goToSignUp = () => {
-        this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
+    goToLogin = () => {
+        this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
     }
+
 
     render() {
         return (
@@ -37,24 +37,31 @@ export default class LoginScreen extends BaseComponent {
                     <View style={{ height: 200, alignItems: 'center', justifyContent: 'center', }}>
 
                         <View style={{ marginTop: Dimens.px_20, alignItems: 'center', justifyContent: 'center' }}>
-                            <CommonText title={strings('welcomeBack')}
-                                fontFamily={fonts.font_medium}
-                                fontSize={Dimens.px_35}
-                                color={Colors.textColor}></CommonText>
-                            <CommonText title={strings('emailAndPassword')}
+                            <View style={{ flexDirection: 'row' }}>
+                                <CommonText title={strings('join')}
+                                    fontFamily={fonts.font_medium}
+                                    fontSize={Dimens.px_35}
+                                    color={Colors.textColor}></CommonText>
+                                <CommonText title={strings('Rayei')}
+                                    fontFamily={fonts.font_bold}
+                                    fontSize={Dimens.px_35}
+                                    marginStart={8}
+                                    color={Colors.colorAccent}></CommonText>
+                            </View>
+                            <CommonText title={strings('createAnAccount')}
                                 fontFamily={fonts.font_bold}
-                                fontSize={Dimens.px_15}
                                 textAlign={'center'}
+                                fontSize={Dimens.px_15}
                                 color={Colors.textColor}></CommonText>
                         </View>
 
                     </View>
                     <View style={{
-                        flex: 1,
+                        flex:1,
                         backgroundColor: Colors.colorPrimary, borderTopStartRadius: Dimens.px_25,
                         borderTopEndRadius: Dimens.px_25, elevation: Dimens.px_5
                     }}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: Dimens.px_30, paddingLeft: Dimens.px_35, paddingRight: Dimens.px_35 }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', paddingLeft: Dimens.px_35, paddingRight: Dimens.px_35 }}>
                             <CommonTextInput
                                 style={{ placeholderTextColor: Colors.gray }}
                                 width={'100%'}
@@ -66,7 +73,22 @@ export default class LoginScreen extends BaseComponent {
                                 backgroundColor={Colors.white}
                                 color={Colors.textColor}
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
-                                placeholder={strings('emailOrUsername')}
+                                placeholder={strings('email')}
+                                onChangeText={(value) => {
+                                    this.setState({ emailUsername: value })
+                                }} />
+                            <CommonTextInput
+                                style={{ placeholderTextColor: Colors.gray }}
+                                width={'100%'}
+                                height={Dimens.px_60}
+                                marginTop={Dimens.px_30}
+                                fontFamily={fonts.font_medium}
+                                fontSize={Dimens.px_20}
+                                textAlign={'center'}
+                                backgroundColor={Colors.white}
+                                color={Colors.textColor}
+                                keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
+                                placeholder={strings('mobile')}
                                 onChangeText={(value) => {
                                     this.setState({ emailUsername: value })
                                 }} />
@@ -89,27 +111,34 @@ export default class LoginScreen extends BaseComponent {
 
                             <CommonButton
                                 fontFamily={fonts.font_medium}
-                                onButtonPress={this.goToSignUp}
+                                onButtonPress={this.goToLogin}
                                 backgroundColor={Colors.colorAccent}
                                 buttonWidth={'100%'}
                                 buttonHeight={Dimens.px_60}
                                 marginTop={Dimens.px_30}
-                                title={strings('login')}
+                                title={strings('signup')}
                                 textColor={Colors.white}
                             >
                             </CommonButton>
-                            <CommonText title={strings('forgotPassword')}
-                                fontFamily={fonts.font_bold}
-                                fontSize={Dimens.px_14}
-                                marginTop={Dimens.px_15}
-                                color={Colors.textColor}></CommonText>
+                            <View style={{ flexDirection: 'row', marginTop: Dimens.px_15, alignItems: 'center' }}>
+                                <CommonText title={strings('byJoiningRayie')}
+                                    fontFamily={fonts.font_bold}
+                                    fontSize={Dimens.px_14}
+                                    color={Colors.textColor}></CommonText>
+                                <CommonText title={strings('termsOfServices')}
+                                    fontFamily={fonts.font_bold}
+                                    fontSize={Dimens.px_14}
+                                    marginStart={5}
+                                    color={Colors.white}></CommonText>
+                            </View>
+
 
                         </View>
 
-                        <View style={{ flex: 1, flexDirection: 'row', marginBottom: 20 }}>
+                        <View style={{ flex: 1, flexDirection: 'row',marginBottom:20 }}>
                             <View style={{ flex: 1 }}></View>
-                            <TouchableOpacity onPress={this.goToSignUp}>
-                                <CommonText title={strings('signup')}
+                            <TouchableOpacity onPress={this.goToLogin}>
+                                <CommonText title={strings('login')}
                                     fontFamily={fonts.font_bold}
                                     fontSize={18}
                                     marginTop={Dimens.px_30}

@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Image } from 'react-native';
 import * as Dimens from '../values/Dimens';
 import * as Colors from '../values/Colors';
-import { isRTL,isArabic } from '../../i18n/i18n';
+import { isRTL, isArabic } from '../../i18n/i18n';
 import BaseComponent from './BaseComponent';
 
 class RTLIcon extends BaseComponent {
@@ -17,8 +17,8 @@ class RTLIcon extends BaseComponent {
 
     iconStyle = function () {
         const { iconWidth, iconHeight } = this.props;
-        console.log("iconStyle",isArabic);
-        
+        console.log("iconStyle", isArabic);
+
         if (isArabic) {
             return ({
                 width: iconWidth,
@@ -36,19 +36,20 @@ class RTLIcon extends BaseComponent {
 
 
     render() {
-        const { source, padding, leftIconPress, tintColor, containerWidth } = this.props;
+        const { source, padding, iconPress, tintColor, containerWidth } = this.props;
         return (
             <View style={{
                 padding: padding,
                 height: '100%',
                 width: containerWidth,
                 alignSelf: 'flex-start',
-                alignItems: 'center',
-                justifyContent: 'center',
                 position: 'absolute',
             }}>
-                <TouchableOpacity
-                    onPress={leftIconPress}
+                <TouchableOpacity style={{
+                    width: '100%', height: '100%', alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+                    onPress={iconPress}
                     activeOpacity={1}
                 >
                     {source ?

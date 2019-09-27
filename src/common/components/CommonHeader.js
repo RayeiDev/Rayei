@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Image, Text } from 'react-native';
 import * as Dimens from '../values/Dimens';
-import * as Strings from '../values/Strings';
-import * as Colors from '../values/Colors';
-import CommonText from './CommonText';
 import RTLIcon from './RTLIcon';
 import BaseComponent from './BaseComponent';
+import { isRTL } from '../../i18n/i18n';
 const logo = require('../../../assets/images/logo.png');
 
 
@@ -34,17 +32,19 @@ class CommonHeader extends BaseComponent {
         elevation: 5,
         backgroundColor: this.props.headerBg
       }}>
-        <RTLIcon
-          source={this.props.leftICImagePath}
-          padding={10}
-          leftIconPress={this.props.leftIconPress}
-          tintColor={this.props.tintColor}
-          iconWidth={Dimens.px_25}
-          iconHeight={Dimens.px_25}
-          containerWidth={Dimens.px_50}
-        >
+        {this.props.isRTLIconVisibile === false ? null :
+          <RTLIcon
+            source={this.props.leftICImagePath}
+            padding={10}
+            iconPress={this.props.leftIconPress}
+            tintColor={this.props.tintColor}
+            iconWidth={Dimens.px_25}
+            iconHeight={Dimens.px_25}
+            containerWidth={Dimens.px_50}
+          />
+        }
 
-        </RTLIcon>
+
         <View style={style.LogoContainerStyle}>
           <Image source={logo}
             style={style.LogoStyle}
@@ -52,8 +52,6 @@ class CommonHeader extends BaseComponent {
           />
 
         </View>
-
-
       </View>
     );
   }

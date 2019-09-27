@@ -2,6 +2,8 @@
 export const SCREEN_SPLASH='Splash'
 export const SCREEN_LOGIN_SIGNUP='LoginSignUpOptionScreen'
 export const SCREEN_LOGIN='LoginScreen'
+export const SCREEN_SIGNUP='SignUpScreen'
+export const SCREEN_DASHBOARD='Dashboard'
 
 
 

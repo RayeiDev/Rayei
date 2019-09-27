@@ -1,7 +1,10 @@
 export const px_1 = .5;
 export const px_2 = 2;
 export const px_5 = 5;
-export const px_10 = 10;
+export const px_10 = 12;
+export const px_12 = 10;
+export const px_14 = 14;
+export const px_13 = 13;
 export const px_15 = 15;
 export const px_20 = 20;
 export const px_25 = 25;

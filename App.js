@@ -12,15 +12,17 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Splash from './src/containers/Splash'
 import LoginScreen from './src/containers/LoginScreen'
+import SignUpScreen from './src/containers/SignUpScreen'
+import Dashboard from './src/containers/dashboard/Dashboard'
 import LoginSignUpOptionScreen from './src/containers/LoginSignUpOptionScreen'
 import BaseComponent from './src/common/components/BaseComponent'
 import * as Constants from './src/common/values/Constants'
 
-export default class App extends BaseComponent{
+export default class App extends BaseComponent {
 
-  render(){
+  render() {
     const AppContainer = createAppContainer(AppStackNavigator)
-    return(
+    return (
       <AppContainer></AppContainer>
     )
   }
@@ -44,31 +46,41 @@ const AppStackNavigator = createStackNavigator({
     screen: LoginScreen, navigationOptions: {
       header: null
     }
+  },
+  [Constants.SCREEN_SIGNUP]: {
+    screen: SignUpScreen, navigationOptions: {
+      header: null
+    }
+  },
+  [Constants.SCREEN_DASHBOARD]: {
+    screen: Dashboard, navigationOptions: {
+      header: null,
+    }
   }
 }, {
-    initialRouteName: Constants.SCREEN_SPLASH,
-    transitionConfig: () => ({
-      transitionSpec: {
-        duration: 300,
-        easing: Easing.out(Easing.poly(4)),
-        timing: Animated.timing,
-      },
-      screenInterpolator: sceneProps => {
-        const { layout, position, scene } = sceneProps;
-        const { index } = scene;
-        const width = layout.initWidth;
-        const translateX = position.interpolate({
-          inputRange: [index - 1, index, index + 1],
-          outputRange: [width, 0, 0],
-        });
-        const opacity = position.interpolate({
-          inputRange: [index - 1, index - 0.99, index],
-          outputRange: [0, 1, 1],
-        });
-        return { opacity, transform: [{ translateX: translateX }] };
-      },
-    })
-  }
+  initialRouteName: Constants.SCREEN_DASHBOARD,
+  transitionConfig: () => ({
+    transitionSpec: {
+      duration: 300,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
+    },
+    screenInterpolator: sceneProps => {
+      const { layout, position, scene } = sceneProps;
+      const { index } = scene;
+      const width = layout.initWidth;
+      const translateX = position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: [width, 0, 0],
+      });
+      const opacity = position.interpolate({
+        inputRange: [index - 1, index - 0.99, index],
+        outputRange: [0, 1, 1],
+      });
+      return { opacity, transform: [{ translateX: translateX }] };
+    },
+  })
+}
 
 
 

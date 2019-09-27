@@ -5,9 +5,21 @@
   "welcomeTO": "Welcome to",
   "welcomeBack": "Welcome back",
   "emailAndPassword": "Please enter your registration email and password.",
-  "emailOrUsername": "Email or Username",
+  "emailOrUsername": "Email or Mobile number",
+  "email": "Email",
+  "mobile": "Mobile number",
   "password": "Password",
   "forgotPassword": "Forgot Password",
+  "join": "Join",
+  "createAnAccount": "Create an account and participate in feedback services",
+  "byJoiningRayie": "by joining, you agree to Rayei's",
+  "termsOfServices": "Terms of Services",
+  "liveVoting": "Live Voting",
+  "reward": "Reward",
+  "news": "News",
+  "profile": "Profile",
+  "menu": "Menu",
+  "enterCodeToVote": "Please enter code to vote",
 
   "Test": "Test"
   

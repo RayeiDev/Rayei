@@ -1,5 +1,6 @@
 export const white = '#ffffff';
 export const gray = '#cccccc';
+export const lightGray = '#eeeeee';
 export const transparent = '#00000000';
 export const transparentBlueSelector = '#1643B990';
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Platform, BackHandler } from 'react-native';
+import { AsyncStorage, Platform, BackHandler ,Alert} from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import DeviceInfo from 'react-native-device-info';
 import Toast from 'react-native-simple-toast';
+import {strings} from '../..//i18n/i18n'
 class Basecomponents extends Component {
 
   static navigationOptions = ({ navigation }) => ({
@@ -65,9 +66,19 @@ class Basecomponents extends Component {
     this.props.navigation.openDrawer();
   }
 
+  
 }
 
 
-
+export function showMessage(isError=false,message){
+  Alert.alert(
+    isError ? strings('error') : strings('success'),
+    message,
+    [
+      {text: strings('ok'), style: 'cancel'},
+    ],
+    {cancelable: false},
+  );
+}
 
 export default Basecomponents;

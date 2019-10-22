@@ -3,7 +3,11 @@ export const SCREEN_SPLASH='Splash'
 export const SCREEN_LOGIN_SIGNUP='LoginSignUpOptionScreen'
 export const SCREEN_LOGIN='LoginScreen'
 export const SCREEN_SIGNUP='SignUpScreen'
+export const SCREEN_LANGUAGE='LanguageScreen'
 export const SCREEN_DASHBOARD='Dashboard'
+export const SCREEN_QUESTIONS='QuestionScreen'
+export const SCREEN_SURVEY_LIST='SurveyListScreen'
+export const SCREEN_SURVEY_DETAIL='SurveyDetailScreen'
 
 
 
@@ -47,6 +51,8 @@ export const LIST_THRESHOLD = 0.5;
 export const MAX_LENGTH_OF_PHONE_NUMBER = 10;
 export const MIN_LENGTH_OF_PHONE_NUMBER = 10;
 
+export const MAX_LENGTH_OF_PASSWORD = 20;
+export const MIN_LENGTH_OF_PASSWORD = 8;
 export const MAX_LENGTH_OF_ZIPCODE = 6;
 export const MIN_LENGTH_OF_ZIPCODE = 6;
 
@@ -80,3 +86,16 @@ export const KEY_DESCRIPTION = 'description';
 export const KEY_IMAGE = 'image';
 
 export const SHOW_AFTER = 300;
+
+
+export const METHOD_TYPE_POST = 'POST';
+export const METHOD_TYPE_GET = 'get';
+export const METHOD_TYPE_DELETE = 'delete';
+export const METHOD_TYPE_PUT = 'PUT';
+
+/////////////////////////////////////// API NAMES ////////////////////////////////////
+
+export const BASE_URL = 'http://ec2-13-59-72-71.us-east-2.compute.amazonaws.com:8000/v1/';
+export const AUTH_URL = BASE_URL+'auth/';
+export const API_SIGNUP = AUTH_URL+'signup/';
+export const API_LOGIN = AUTH_URL+'login/';

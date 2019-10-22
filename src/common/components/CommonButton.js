@@ -16,23 +16,28 @@ class CommonButton extends BaseComponent {
         buttonWidth: '85%',
         marginTop: 0,
         title: strings('Rayei'),
-        textColor: Colors.white
+        textColor: Colors.white,
+        borderColor:Colors.colorAccent,
+        borderWidth:0
     }
 
 
     render() {
-        const { fontFamily, onButtonPress, backgroundColor, buttonWidth,buttonHeight, marginTop, title, textColor } = this.props;
+        const { fontFamily, onButtonPress, backgroundColor, buttonWidth, buttonHeight, marginTop, title, textColor, borderColor,borderWidth } = this.props;
         return (
 
-            <TouchableOpacity style={{width:'100%',justifyContent: 'center',
-            alignItems: 'center'}}
+            <TouchableOpacity style={{
+                width: '100%', justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: marginTop
+            }}
                 onPress={onButtonPress}
                 activeOpacity={1}
             >
                 <View style={{
                     width: buttonWidth, height: buttonHeight, backgroundColor: backgroundColor, justifyContent: 'center',
-                    alignItems: 'center', marginTop: marginTop, elevation: 5, borderTopStartRadius: 10, borderTopEndRadius: 10,
-                     borderBottomEndRadius: 10, borderBottomStartRadius: 10
+                    alignItems: 'center', elevation: 5, borderTopStartRadius: 10, borderTopEndRadius: 10,
+                    borderBottomEndRadius: 10, borderBottomStartRadius: 10, borderColor: borderColor,borderWidth:borderWidth
                 }}>
                     <CommonText title={title} fontFamily={fontFamily} fontSize={20} color={textColor}></CommonText>
                 </View>

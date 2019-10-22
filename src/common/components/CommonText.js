@@ -8,6 +8,10 @@ import * as Colors from '../values/Colors';
 class CommonText extends Component {
   state = { btnBgColor: Colors.blue };
 
+  static defaultProps={
+    textTransform:'capitalize',
+  }
+
   async componentDidMount() {
 
     if (this.props.backgroundColor) {
@@ -36,7 +40,10 @@ class CommonText extends Component {
             alignSelf: this.props.alignSelf,
             color: this.props.color
             , flex: this.props.flex,
-            textDecorationLine: this.props.textDecorationLine
+            textDecorationLine: this.props.textDecorationLine,
+            textTransform: this.props.textTransform,
+            lineHeight: this.props.lineHeight,
+            
           }}
             numberOfLines={this.props.numberOfLines}
           >

@@ -48,7 +48,7 @@ class CommonHeader extends BaseComponent {
         <View style={style.LogoContainerStyle}>
           <Image source={logo}
             style={style.LogoStyle}
-            resizeMode={'cover'}
+            resizeMode={'contain'}
           />
 
         </View>

@@ -10,15 +10,39 @@ import CommonHeader from '../common/components/CommonHeader'
 import CommonButton from '../common/components/CommonButton'
 import CommonText from '../common/components/CommonText'
 import CommonTextInput from '../common/components/CommonTextInput'
-export default class SignUpScreen extends BaseComponent {
+import CustomPBar from '../common/components/CustomPBar'
+import { userSignUp } from '../actions'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as Validations from '../util/Validations'
+
+
+class SignUpScreen extends BaseComponent {
 
     state = {
-        emailUsername: '',
+        email: '',
         password: '',
+        mobile: '',
     }
 
+    static propTypes = {
+        userSignUp: PropTypes.func.isRequired,
+        loading: PropTypes.bool.isRequired,
+
+    }
     goToLogin = () => {
         this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
+    }
+    callSignUp = () => {
+        const { email, password, mobile } = this.state;
+        if (Validations.isValidEmail(email, true) && Validations.isValidMobileNumber(mobile, true) && Validations.isValidPassword(password, true)) {
+            this.props.userSignUp({
+                email: email,
+                password: password,
+                mobile: mobile,
+                is_company: true
+            });
+        }
     }
 
 
@@ -57,7 +81,7 @@ export default class SignUpScreen extends BaseComponent {
 
                     </View>
                     <View style={{
-                        flex:1,
+                        flex: 1,
                         backgroundColor: Colors.colorPrimary, borderTopStartRadius: Dimens.px_25,
                         borderTopEndRadius: Dimens.px_25, elevation: Dimens.px_5
                     }}>
@@ -75,7 +99,7 @@ export default class SignUpScreen extends BaseComponent {
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
                                 placeholder={strings('email')}
                                 onChangeText={(value) => {
-                                    this.setState({ emailUsername: value })
+                                    this.setState({ email: value })
                                 }} />
                             <CommonTextInput
                                 style={{ placeholderTextColor: Colors.gray }}
@@ -90,7 +114,7 @@ export default class SignUpScreen extends BaseComponent {
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
                                 placeholder={strings('mobile')}
                                 onChangeText={(value) => {
-                                    this.setState({ emailUsername: value })
+                                    this.setState({ mobile: value })
                                 }} />
                             <CommonTextInput
                                 style={{ placeholderTextColor: Colors.gray }}
@@ -106,12 +130,12 @@ export default class SignUpScreen extends BaseComponent {
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
                                 placeholder={strings('password')}
                                 onChangeText={(value) => {
-                                    this.setState({ emailUsername: value })
+                                    this.setState({ password: value })
                                 }} />
 
                             <CommonButton
                                 fontFamily={fonts.font_medium}
-                                onButtonPress={this.goToLogin}
+                                onButtonPress={() => this.callSignUp()}
                                 backgroundColor={Colors.colorAccent}
                                 buttonWidth={'100%'}
                                 buttonHeight={Dimens.px_60}
@@ -135,7 +159,7 @@ export default class SignUpScreen extends BaseComponent {
 
                         </View>
 
-                        <View style={{ flex: 1, flexDirection: 'row',marginBottom:20 }}>
+                        <View style={{ flex: 1, flexDirection: 'row', marginBottom: 20 }}>
                             <View style={{ flex: 1 }}></View>
                             <TouchableOpacity onPress={this.goToLogin}>
                                 <CommonText title={strings('login')}
@@ -151,14 +175,24 @@ export default class SignUpScreen extends BaseComponent {
                         </View>
                     </View>
                 </ScrollView>
+                <CustomPBar showProgress={this.props.loading} />
             </View>
         )
     }
 
-
-    componentDidMount() {
-
-
-    }
-
 }
+
+const mapStateToProps = (state) => ({
+    loading: state.loading
+});
+
+const mapDispatchToProps = {
+    userSignUp,
+};
+
+const SignUp = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignUpScreen);
+
+export default SignUp;

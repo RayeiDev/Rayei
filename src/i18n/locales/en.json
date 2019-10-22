@@ -16,10 +16,35 @@
   "termsOfServices": "Terms of Services",
   "liveVoting": "Live Voting",
   "reward": "Reward",
+  "rewards": "Rewards",
   "news": "News",
   "profile": "Profile",
   "menu": "Menu",
+  "all": "All",
+  "next": "NEXT",
+  "prize": "Prize",
+  "questions": "Questions",
+  "duration": "Duration",
+  "deadline": "Deadline",
+  "share": "Share",
+  "start": "START",
+  "error": "Error",
+  "success": "Success",
+  "ok": "Ok",
+  "cancel": "Cancel",
+  "somethingWentWrong": "Something went wrong! Please try again.",
+
   "enterCodeToVote": "Please enter code to vote",
+
+
+  "EMPTY_EMAIL": "Please enter email address.",
+  "EMPTY_MOBILE": "Please enter mobile number.",
+  "EMPTY_PASSWORD": "Please enter password.",
+  "INVALID_USERNAME": "Invalid Username",
+  "INVALID_EMAIL": "Please enter valid email address.",
+  "INVALID_MOBILE": "Please enter valid mobile number.",
+  "MOBILE_LENGTH_EXCEED": "Mobile number is not more than 10 digit.",
+  "INVALID_PASSWORD": "Password length must be 8 to 20 digit.",
 
   "Test": "Test"
   

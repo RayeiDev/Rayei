@@ -10,16 +10,32 @@ import CommonHeader from '../common/components/CommonHeader'
 import CommonButton from '../common/components/CommonButton'
 import CommonText from '../common/components/CommonText'
 import CommonTextInput from '../common/components/CommonTextInput'
+import { userSignUp } from '../actions'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as Validations from '../util/Validations'
 export default class LoginScreen extends BaseComponent {
 
     state = {
-        emailUsername: '',
+        emailOrMobile: '',
         password: '',
     }
 
 
     goToSignUp = () => {
         this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
+    }
+
+    callLogin = () => {
+        const { emailOrMobile, password } = this.state;
+        if (Validations.isValidEmail(emailOrMobile, true) && Validations.isValidPassword(password, true)) {
+            this.props.userSignUp({
+                email: email,
+                password: password,
+                mobile: mobile,
+                is_company: true
+            });
+        }
     }
 
     render() {
@@ -68,7 +84,7 @@ export default class LoginScreen extends BaseComponent {
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
                                 placeholder={strings('emailOrUsername')}
                                 onChangeText={(value) => {
-                                    this.setState({ emailUsername: value })
+                                    this.setState({ emailOrMobile: value })
                                 }} />
                             <CommonTextInput
                                 style={{ placeholderTextColor: Colors.gray }}

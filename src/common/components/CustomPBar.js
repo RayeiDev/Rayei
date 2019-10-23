@@ -11,7 +11,7 @@ class CustomPBar extends Component {
       <View >
         <Spinner
           visible={this.props.showProgress}
-           textContent={"Loading..."} textStyle={{color: Colors.colorAccent}}
+          // textContent={"Loading..."} textStyle={{color: Colors.colorAccent}}
           color={Colors.colorAccent}
           overlayColor={Colors.transparent}
           size='large'

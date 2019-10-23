@@ -87,7 +87,7 @@ const AppStackNavigator = createStackNavigator({
     }
   },
 }, {
-  initialRouteName: Constants.SCREEN_SIGNUP,
+  initialRouteName: Constants.SCREEN_LOGIN,
   transitionConfig: () => ({
     transitionSpec: {
       duration: 300,

@@ -40,7 +40,7 @@
   "EMPTY_EMAIL": "Please enter email address.",
   "EMPTY_MOBILE": "Please enter mobile number.",
   "EMPTY_PASSWORD": "Please enter password.",
-  "INVALID_USERNAME": "Invalid Username",
+  "INVALID_USERNAME": "Please enter username.",
   "INVALID_EMAIL": "Please enter valid email address.",
   "INVALID_MOBILE": "Please enter valid mobile number.",
   "MOBILE_LENGTH_EXCEED": "Mobile number is not more than 10 digit.",

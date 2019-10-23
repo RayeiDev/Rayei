@@ -41,7 +41,7 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                 <View style={{ flex: .15, }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', }}>
                         <Image
-                            style={{ height: Dimens.px_40, width: Dimens.px_40,marginRight:Dimens.px_10 }}
+                            style={{ height: Dimens.px_40, width: Dimens.px_40, marginRight: Dimens.px_10 }}
                             source={require('../../assets/images/qatar.png')}
                             resizeMode={'contain'}
                         ></Image>
@@ -51,7 +51,7 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                             numberOfLine={1}
                             color={Colors.textColor}></CommonText>
                         <Image
-                            style={{ height: 25, width: 25, marginLeft:Dimens.px_20 }}
+                            style={{ height: 25, width: 25, marginLeft: Dimens.px_20 }}
                             source={require('../../assets/images/down_arrow.png')}
                             resizeMode={'contain'}
                             tintColor={Colors.textColor}

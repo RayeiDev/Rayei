@@ -1,7 +1,10 @@
 import {
     SIGNUP_USER_STARTED,
     SIGNUP_USER_SUCCESS,
-    SIGNUP_USER_FAILURE
+    SIGNUP_USER_FAILURE,
+    LOGIN_STARTED,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE
 
 } from '../constants';
 import Immutable from 'seamless-immutable';
@@ -38,21 +41,30 @@ export const onSignUpFailure = (state) =>
         })
     });
 
-// const reducer = (state = {}, action) => {
-//     switch (action.type) {
-//         case SIGNUP_USER:
-//             return { ...state, loading: true };
-//         case NEWS_RECEIVED:
-//             return { ...state, news: action.json[0], loading: false }
-//         default:
-//             return state;
-//     }
-// };
+export const onLoginStarted = state =>
+    state.merge({
+        loading: true
+    });
+export const onLoginSuccess = (state, response) =>
+    state.merge({
+        loading: false,
+        app: state.app.merge({
+            userData: response
+        })
+    });
+export const onLoginFailure = (state) =>
+    state.merge({
+        loading: false
+    });
+
 
 const appReducer = createReducer(initialState, {
     [SIGNUP_USER_STARTED]: onSignUpStarted,
     [SIGNUP_USER_SUCCESS]: onSignUpSuccess,
     [SIGNUP_USER_FAILURE]: onSignUpFailure,
+    [LOGIN_STARTED]: onLoginStarted,
+    [LOGIN_SUCCESS]: onLoginSuccess,
+    [LOGIN_FAILURE]: onLoginFailure,
 
 });
 

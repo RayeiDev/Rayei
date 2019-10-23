@@ -10,11 +10,12 @@ import CommonHeader from '../common/components/CommonHeader'
 import CommonButton from '../common/components/CommonButton'
 import CommonText from '../common/components/CommonText'
 import CommonTextInput from '../common/components/CommonTextInput'
-import { userSignUp } from '../actions'
+import CustomPBar from '../common/components/CustomPBar'
+import { userLogin } from '../actions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as Validations from '../util/Validations'
-export default class LoginScreen extends BaseComponent {
+class LoginScreen extends BaseComponent {
 
     state = {
         emailOrMobile: '',
@@ -22,21 +23,35 @@ export default class LoginScreen extends BaseComponent {
     }
 
 
+    static propTypes = {
+        userLogin: PropTypes.func.isRequired,
+        loading: PropTypes.bool.isRequired,
+        userData: PropTypes.object,
+
+    }
     goToSignUp = () => {
         this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
+    }
+    goToDashboard = () => {
+        this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
     }
 
     callLogin = () => {
         const { emailOrMobile, password } = this.state;
-        if (Validations.isValidEmail(emailOrMobile, true) && Validations.isValidPassword(password, true)) {
-            this.props.userSignUp({
-                email: email,
+        if (Validations.isValidUserName(emailOrMobile, true) && Validations.isValidPassword(password, true)) {
+            this.props.userLogin({
+                username: emailOrMobile,
                 password: password,
-                mobile: mobile,
-                is_company: true
             });
         }
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.userData !== null) {
+            this.goToDashboard();
+        }
+    }
+
 
     render() {
         return (
@@ -100,12 +115,12 @@ export default class LoginScreen extends BaseComponent {
                                 keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
                                 placeholder={strings('password')}
                                 onChangeText={(value) => {
-                                    this.setState({ emailUsername: value })
+                                    this.setState({ password: value })
                                 }} />
 
                             <CommonButton
                                 fontFamily={fonts.font_medium}
-                                onButtonPress={this.goToSignUp}
+                                onButtonPress={() => this.callLogin()}
                                 backgroundColor={Colors.colorAccent}
                                 buttonWidth={'100%'}
                                 buttonHeight={Dimens.px_60}
@@ -138,14 +153,26 @@ export default class LoginScreen extends BaseComponent {
                         </View>
                     </View>
                 </ScrollView>
+                <CustomPBar showProgress={this.props.loading} />
+
             </View>
         )
     }
 
-
-    componentDidMount() {
-
-
-    }
-
 }
+
+const mapStateToProps = (state) => ({
+    loading: state.loading,
+    userData: state.app.userData
+});
+
+const mapDispatchToProps = {
+    userLogin,
+};
+
+const Login = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginScreen);
+
+export default Login;

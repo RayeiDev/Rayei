@@ -65,7 +65,16 @@ class Basecomponents extends Component {
   openDrawer = () => {
     this.props.navigation.openDrawer();
   }
-
+   showBackAlert=(isError=false,message)=>{
+    Alert.alert(
+      isError ? strings('error') : strings('success'),
+      message,
+      [
+        {text: strings('ok'), style: 'cancel', onPress: () => { this.handleBackButtonClick()}},
+      ],
+      {cancelable: false},
+    );
+  }
   
 }
 
@@ -80,5 +89,7 @@ export function showMessage(isError=false,message){
     {cancelable: false},
   );
 }
+
+
 
 export default Basecomponents;

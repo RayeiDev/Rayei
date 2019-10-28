@@ -5965,6 +5965,11 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
+rn-range-slider@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/rn-range-slider/-/rn-range-slider-1.2.9.tgz#02f91d013e5c0a9aa8d5de57a3efe465d2997b14"
+  integrity sha512-pxusNwuIxWCrcs3hJDm3K/9J0xCtM9N1cmggrRgGP2yZaoaMfeetTj+BZbZvhZdsRYi6uHr/Tqh3KXuSJcqG/w==
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"

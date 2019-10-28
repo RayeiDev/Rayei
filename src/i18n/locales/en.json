@@ -33,8 +33,9 @@
   "ok": "Ok",
   "cancel": "Cancel",
   "somethingWentWrong": "Something went wrong! Please try again.",
-
   "enterCodeToVote": "Please enter code to vote",
+  "submit": "Submit",
+  "from1-10": "FROM 1-10",
 
 
   "EMPTY_EMAIL": "Please enter email address.",

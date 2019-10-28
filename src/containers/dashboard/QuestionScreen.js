@@ -12,6 +12,7 @@ import CommonText from '../../common/components/CommonText'
 import SingleChoiceQuestion from '../../containers/dashboard/questions/SingleChoiceQuestion'
 import MultipleSelectionQuestion from '../../containers/dashboard/questions/MultipleSelectionQuestion'
 import RatingQuestion from '../../containers/dashboard/questions/RatingQuestion'
+import RangeQuestion from '../../containers/dashboard/questions/RangeQuestion'
 import CommentQuestion from '../../containers/dashboard/questions/CommentQuestion'
 import { strings } from '../../i18n/i18n';
 
@@ -42,8 +43,8 @@ export default class QuestionScreen extends BaseComponent {
             },
             {
                 questionType: 5,
-                question: 'What is your favourite color?',
-                answers: [{ id: 1, text: 'Red' }, { id: 2, text: 'Blue' }, { id: 2, text: 'Black' }, { id: 2, text: 'Pink' }, { id: 2, text: 'Purple' }],
+                question: 'What is your favourite number?',
+                answers: [],
             },
 
 
@@ -146,6 +147,8 @@ export default class QuestionScreen extends BaseComponent {
                 return (<MultipleSelectionQuestion question={questionArray[currentQuestionIndex]} />)
             case 4:
                 return (<RatingQuestion question={questionArray[currentQuestionIndex]} />)
+            case 5:
+                return (<RangeQuestion question={questionArray[currentQuestionIndex]} />)
         }
     }
 

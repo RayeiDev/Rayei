@@ -19,6 +19,7 @@ import SurveyListScreen from './src/containers/dashboard/survey/SurveyListScreen
 import SurveyDetailScreen from './src/containers/dashboard/survey/SurveyDetailScreen'
 import Dashboard from './src/containers/dashboard/Dashboard'
 import LoginSignUpOptionScreen from './src/containers/LoginSignUpOptionScreen'
+import ForgotPasswordScreen from './src/containers/ForgotPassword'
 import BaseComponent from './src/common/components/BaseComponent'
 import * as Constants from './src/common/values/Constants'
 import { Provider } from 'react-redux';
@@ -61,6 +62,11 @@ const AppStackNavigator = createStackNavigator({
       header: null
     }
   },
+  [Constants.SCREEN_FORGOT_PASSWORD]: {
+    screen: ForgotPasswordScreen, navigationOptions: {
+      header: null
+    }
+  },
   [Constants.SCREEN_LANGUAGE]: {
     screen: LanguageScreen, navigationOptions: {
       header: null
@@ -87,7 +93,7 @@ const AppStackNavigator = createStackNavigator({
     }
   },
 }, {
-  initialRouteName: Constants.SCREEN_LOGIN,
+  initialRouteName: Constants.SCREEN_QUESTIONS,
   transitionConfig: () => ({
     transitionSpec: {
       duration: 300,

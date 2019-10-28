@@ -6,7 +6,11 @@ import {
     LOGIN_REQUEST,
     LOGIN_STARTED,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_STARTED,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAILURE,
 } from '../constants';
 import { createAction } from '../util/reduxUtil'
 
@@ -26,6 +30,15 @@ export const loginStarted = () =>
     createAction(LOGIN_STARTED);
 export const loginSuccess = (response) =>
     createAction(LOGIN_SUCCESS,{response});
-export const loginFailure = (response) =>
-    createAction(LOGIN_FAILURE,{response});
+export const loginFailure = () =>
+    createAction(LOGIN_FAILURE);
+
+export const forgotPassword = (requestBody) =>
+    createAction(FORGOT_PASSWORD_REQUEST,{requestBody});
+export const forgotPasswordStarted = () =>
+    createAction(FORGOT_PASSWORD_STARTED);
+export const forgotPasswordSuccess = (response) =>
+    createAction(FORGOT_PASSWORD_SUCCESS,{response});
+export const forgotPasswordFailure = () =>
+    createAction(FORGOT_PASSWORD_FAILURE);
 

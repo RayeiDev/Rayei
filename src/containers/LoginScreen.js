@@ -32,6 +32,9 @@ class LoginScreen extends BaseComponent {
     goToSignUp = () => {
         this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
     }
+    goToForgotPassword = () => {
+        this.props.navigation.navigate(Constants.SCREEN_FORGOT_PASSWORD, {});
+    }
     goToDashboard = () => {
         this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
     }
@@ -44,6 +47,14 @@ class LoginScreen extends BaseComponent {
                 password: password,
             });
         }
+    }
+
+    callForgotPassword = () => {
+        const { emailOrMobile, password } = this.state;
+            this.props.userLogin({
+                username: emailOrMobile,
+                password: password,
+            });
     }
 
     componentDidUpdate(prevProps) {
@@ -129,11 +140,14 @@ class LoginScreen extends BaseComponent {
                                 textColor={Colors.white}
                             >
                             </CommonButton>
-                            <CommonText title={strings('forgotPassword')}
-                                fontFamily={fonts.font_bold}
-                                fontSize={Dimens.px_14}
-                                marginTop={Dimens.px_15}
-                                color={Colors.textColor}></CommonText>
+                            <TouchableOpacity onPress={this.goToForgotPassword}>
+                                <CommonText title={strings('forgotPassword')}
+                                    fontFamily={fonts.font_bold}
+                                    fontSize={Dimens.px_14}
+                                    marginTop={Dimens.px_15}
+                                    color={Colors.textColor}></CommonText>
+                            </TouchableOpacity>
+
 
                         </View>
 

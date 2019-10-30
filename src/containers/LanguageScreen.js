@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import BaseComponent from '../common/components/BaseComponent'
 import * as Colors from '../common/values/Colors'
 import * as fonts from '../common/values/fonts'
@@ -7,19 +7,44 @@ import * as Dimens from '../common/values/Dimens'
 import { strings } from '../i18n/i18n';
 import * as Constants from '../common/values/Constants'
 import CommonHeader from '../common/components/CommonHeader'
-import CommonButton from '../common/components/CommonButton'
 import CommonText from '../common/components/CommonText'
+import CustomPBar from '../common/components/CustomPBar'
+import { lookUpRequest } from '../actions'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as asyncStorage from '../util/asyncStorage'
 
-export default class LoginSignUpOptionScreen extends BaseComponent {
+class LanguageScreen extends BaseComponent {
 
-    onLoginCLick = () => {
-        this.props.navigation.navigate(Constants.SCREEN_LOGIN, {});
+    state = {
+        selectedCountry: null,
+        countries: [],
     }
-    onSignUpCLick = () => {
-        this.props.navigation.navigate(Constants.SCREEN_SIGNUP, {});
+    static propTypes = {
+        lookUpRequest: PropTypes.func.isRequired,
+        loading: PropTypes.bool.isRequired,
+        lookUpData: PropTypes.object,
+
+    }
+   
+    goToDashboard = async (langCode) => {
+        await asyncStorage.setItem(asyncStorage.KEY_LANGUAGE,langCode )
+        await asyncStorage.setItem(asyncStorage.KEY_COUNTRY,JSON.stringify(this.state.selectedCountry) )
+        this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
+    }
+    componentDidMount() {
+        this.props.lookUpRequest()
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.lookUpData && this.props.lookUpData !== prevProps.lookUpData) {
+            this.setState({ countries: this.props.lookUpData.response.countries, selectedCountry: this.props.lookUpData.response.countries[0] })
+        }
+    }
     render() {
+        const { loading } = this.props;
+        const { countries, selectedCountry } = this.state;
+
         return (<View style={{ backgroundColor: Colors.white, flex: 1, }}>
             <CommonHeader
                 alignSelf='flex-start'
@@ -41,11 +66,12 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                 <View style={{ flex: .15, }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', }}>
                         <Image
-                            style={{ height: Dimens.px_40, width: Dimens.px_40, marginRight: Dimens.px_10 }}
-                            source={require('../../assets/images/qatar.png')}
-                            resizeMode={'contain'}
+                            style={{ height: Dimens.px_30, width: Dimens.px_40, marginRight: Dimens.px_10 }}
+                            // source={{ uri: (selectedCountry ? selectedCountry.flag : null) }}
+                            source={{ uri: 'http://rayei-dev.s3.amazonaws.com/static/flags/QA.png' }}
+                            resizeMode={'cover'}
                         ></Image>
-                        <CommonText title={'QATAR'}
+                        <CommonText title={selectedCountry ? selectedCountry.name : null}
                             fontFamily={fonts.font_medium}
                             fontSize={Dimens.px_25}
                             numberOfLine={1}
@@ -63,33 +89,47 @@ export default class LoginSignUpOptionScreen extends BaseComponent {
                     borderTopEndRadius: 25, alignItems: 'center', justifyContent: 'space-around', elevation: 5,
                     paddingLeft: Dimens.px_35, paddingRight: Dimens.px_35, flexDirection: 'row'
                 }}>
+                    {selectedCountry ? (selectedCountry.languages.map((item, index) => {
+                        return (
+                            <TouchableOpacity onPress={()=>this.goToDashboard(item.code)} key={index} style={{
+                                width: '40%', height: Dimens.px_50, backgroundColor: Colors.transparent, justifyContent: 'center',
+                                alignItems: 'center', borderTopStartRadius: 5, borderTopEndRadius: 5,
+                                borderBottomEndRadius: 5, borderBottomStartRadius: 5, borderColor: Colors.white, borderWidth: Dimens.px_2
+                            }}>
+                                <CommonText title={item.name} fontFamily={fonts.font_medium} fontSize={20} color={Colors.white} textTransform={'uppercase'}></CommonText>
+                            </TouchableOpacity>
+                        )
+                    })) : null}
 
-                    <View style={{
-                        width: '40%', height: Dimens.px_50, backgroundColor: Colors.transparent, justifyContent: 'center',
-                        alignItems: 'center', borderTopStartRadius: 5, borderTopEndRadius: 5,
-                        borderBottomEndRadius: 5, borderBottomStartRadius: 5, borderColor: Colors.white, borderWidth: Dimens.px_2
-                    }}>
-                        <CommonText title={'ENGLISH'} fontFamily={fonts.font_medium} fontSize={20} color={Colors.white}></CommonText>
-                    </View>
 
-                    <View style={{
+
+                    {/* <View style={{
                         width: '40%', height: Dimens.px_50, backgroundColor: Colors.transparent, justifyContent: 'center',
                         alignItems: 'center', borderTopStartRadius: 5, borderTopEndRadius: 5,
                         borderBottomEndRadius: 5, borderBottomStartRadius: 5, borderColor: Colors.white, borderWidth: Dimens.px_2
                     }}>
                         <CommonText title={'عربى'} fontFamily={fonts.font_medium} fontSize={20} color={Colors.white}></CommonText>
-                    </View>
+                    </View> */}
 
                 </View>
             </View>
-
-
-
-
-
+            <CustomPBar showProgress={loading} />
         </View>)
     }
 
 
 
 }
+const mapStateToProps = (state) => ({
+    loading: state.loading,
+    lookUpData: state.lookUpData,
+});
+
+const mapDispatchToProps = {
+    lookUpRequest,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LanguageScreen);

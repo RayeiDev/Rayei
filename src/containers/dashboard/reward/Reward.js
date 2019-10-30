@@ -8,42 +8,37 @@ import { strings } from '../../../i18n/i18n';
 import * as Constants from '../../../common/values/Constants'
 import CommonButton from '../../../common/components/CommonButton'
 import CommonText from '../../../common/components/CommonText'
-import CommonTextInput from '../../../common/components/CommonTextInput'
-export default class Reward extends BaseComponent {
+import CustomPBar from '../../../common/components/CustomPBar'
+import { lookUpRequest } from '../../../actions'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import * as asyncStorage from '../../../util/asyncStorage'
+
+class Reward extends BaseComponent {
 
     state = {
-        rewardData: [
-            {
-                id: 1,
-                title: 'Education'
-            },
-            {
-                id: 1,
-                title: 'Sports'
-            },
-            {
-                id: 1,
-                title: 'Health'
-            },
-            {
-                id: 1,
-                title: 'Tourism'
-            },
-            {
-                id: 1,
-                title: 'Transport'
-            },
-            {
-                id: 1,
-                title: 'Events'
-            },
-            {
-                id: 1,
-                title: 'Transport'
-            }
-        ]
+        survey_categories: [],
+        country: null,
     }
 
+    static propTypes = {
+        lookUpRequest: PropTypes.func.isRequired,
+        loading: PropTypes.bool.isRequired,
+        lookUpData: PropTypes.object,
+
+    }
+
+    async componentDidMount() {
+       const userCountry = await asyncStorage.getItem(asyncStorage.KEY_COUNTRY);
+        this.setState({country:userCountry})
+        this.props.lookUpRequest()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.lookUpData && this.props.lookUpData !== prevProps.lookUpData) {
+            this.setState({ survey_categories: this.props.lookUpData.response.survey_categories })
+        }
+    }
     goToSurveyList = () => {
         this.props.navigation.navigate(Constants.SCREEN_SURVEY_LIST, {});
     }
@@ -51,10 +46,10 @@ export default class Reward extends BaseComponent {
 
 
     render() {
+        const { survey_categories, country } = this.state;
+        const { loading } = this.props;
         return (
-
-
-            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: Colors.white,paddingBottom:Dimens.px_20 }} showsVerticalScrollIndicator={false}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: Colors.white, paddingBottom: Dimens.px_20 }} showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, }}>
                     <View style={{ flex: .25, }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: Dimens.px_30 }}>
@@ -66,36 +61,41 @@ export default class Reward extends BaseComponent {
                                 color={Colors.textColor}></CommonText>
                             <Image
                                 style={{ height: Dimens.px_30, width: Dimens.px_30, marginLeft: Dimens.px_10 }}
-                                source={require('../../../../assets/images/qatar.png')}
-                                resizeMode={'contain'}
+                                // source={{ uri: (country ? country.flag : null) }}
+                                source={{ uri: 'http://rayei-dev.s3.amazonaws.com/static/flags/QA.png' }} resizeMode={'cover'}
                             ></Image>
 
                         </View>
-                        <CommonButton
-                            fontFamily={fonts.font_medium}
-                            //onButtonPress={this.goToLogin}
-                            backgroundColor={Colors.colorAccent}
-                            buttonWidth={'90%'}
-                            buttonHeight={Dimens.px_50}
-                            marginTop={Dimens.px_30}
-                            title={strings('all')}
-                            textColor={Colors.white}
-                        />
+
                     </View>
                     <View style={{ flex: .75, }}>
-                        {this.state.rewardData.map((item, index) => {
+                        {survey_categories.map((item, index) => {
                             return (
-                                <CommonButton
-                                    key={index}
-                                    fontFamily={fonts.font_medium}
-                                    onButtonPress={this.goToSurveyList}
-                                    backgroundColor={Colors.white}
-                                    buttonWidth={'90%'}
-                                    buttonHeight={Dimens.px_50}
-                                    marginTop={Dimens.px_10}
-                                    title={item.title}
-                                    textColor={Colors.colorAccent}
-                                />
+                                index === 0 ?
+                                    (<CommonButton key={index}
+                                        fontFamily={fonts.font_medium}
+                                        onButtonPress={this.goToSurveyList}
+                                        backgroundColor={Colors.colorAccent}
+                                        buttonWidth={'90%'}
+                                        buttonHeight={Dimens.px_50}
+                                        marginTop={Dimens.px_30}
+                                        title={item.name}
+                                        textColor={Colors.white}
+                                    />) :
+                                    (
+                                        <CommonButton key={index}
+                                            key={index}
+                                            fontFamily={fonts.font_medium}
+                                            onButtonPress={this.goToSurveyList}
+                                            backgroundColor={Colors.white}
+                                            buttonWidth={'90%'}
+                                            buttonHeight={Dimens.px_50}
+                                            marginTop={Dimens.px_10}
+                                            title={item.name}
+                                            textColor={Colors.colorAccent}
+                                        />
+                                    )
+
                             )
 
                         })
@@ -103,11 +103,23 @@ export default class Reward extends BaseComponent {
                     </View>
 
                 </View>
+                <CustomPBar showProgress={loading} />
+
             </ScrollView>
 
         )
     }
-
-
-
 }
+const mapStateToProps = (state) => ({
+    loading: state.loading,
+    lookUpData: state.lookUpData,
+});
+
+const mapDispatchToProps = {
+    lookUpRequest,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Reward);

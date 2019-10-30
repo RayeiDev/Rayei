@@ -1,14 +1,11 @@
 import * as Constants from '../common/values/Constants'
-import {strings} from '../i18n/i18n'
-import {
-    signUpFailure,
-} from '../actions';
+import * as asyncStorage from '../util/asyncStorage'
 
 
 
-  export async function callApi(methodType, apiUrl, requestBody) {
-    if (methodType == Constants.METHOD_TYPE_POST) {
-     return await fetch(apiUrl, {
+export async function callApi(methodType, apiUrl, requestBody) {
+    if (methodType === Constants.METHOD_TYPE_POST) {
+        return await fetch(apiUrl, {
             method: methodType,
             headers: {
                 Accept: 'application/json',
@@ -19,13 +16,39 @@ import {
             const statusCode = response.status;
             const data = response.json();
             return Promise.all([statusCode, data]);
-          })
+        })
             .then(([statusCode, data]) => {
                 console.log("statusCode", statusCode);
                 console.log("data", data);
-                const responseObj={
-                    data:data,
-                    statusCode:statusCode
+                const responseObj = {
+                    data: data,
+                    statusCode: statusCode
+                }
+                return responseObj;
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    }
+    else if (methodType === Constants.METHOD_TYPE_GET) {
+        const language = await asyncStorage.getItem(asyncStorage.KEY_LANGUAGE);
+        return await fetch(apiUrl, {
+            method: methodType,
+            headers: {
+                'language-code': language ? language :'en',
+            }
+        }).then((response) => {
+            const statusCode = response.status;
+            const data = response.json();
+            return Promise.all([statusCode, data]);
+        })
+            .then(([statusCode, data]) => {
+                console.log("statusCode", statusCode);
+                console.log("data", data);
+                const responseObj = {
+                    data: data,
+                    statusCode: statusCode
                 }
                 return responseObj;
             })

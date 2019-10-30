@@ -102,3 +102,4 @@ export const AUTH_URL = BASE_URL+'auth/';
 export const API_SIGNUP = AUTH_URL+'signup/';
 export const API_LOGIN = AUTH_URL+'login/';
 export const API_FORGOT_PASSWORD = AUTH_URL+'password/reset_request/';
+export const API_LOOKUP = BASE_URL+'lookup';

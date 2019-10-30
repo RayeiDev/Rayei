@@ -13,7 +13,7 @@ import CommonTextInput from '../common/components/CommonTextInput'
 import CustomPBar from '../common/components/CustomPBar'
 import { userLogin } from '../actions'
 import { connect } from 'react-redux';
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import * as Validations from '../util/Validations'
 import * as asyncStorage from '../util/asyncStorage'
 class LoginScreen extends BaseComponent {

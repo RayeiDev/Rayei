@@ -3,6 +3,8 @@ import  AsyncStorage  from '@react-native-community/async-storage';
 
 
 export const KEY_USERDATA = 'KEY_USERDATA'
+export const KEY_LANGUAGE = 'KEY_LANGUAGE'
+export const KEY_COUNTRY = 'KEY_COUNTRY'
 
 export const setItem = async (key, value) => {
     try {

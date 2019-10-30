@@ -93,7 +93,7 @@ const AppStackNavigator = createStackNavigator({
     }
   },
 }, {
-  initialRouteName: Constants.SCREEN_QUESTIONS,
+  initialRouteName: Constants.SCREEN_LANGUAGE,
   transitionConfig: () => ({
     transitionSpec: {
       duration: 300,

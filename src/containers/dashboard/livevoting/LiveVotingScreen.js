@@ -15,8 +15,9 @@ export default class LiveVotingScreen extends BaseComponent {
         votingCode: '',
     }
 
+  
     joinVoting = () => {
-
+        this.props.navigation.navigate(Constants.SCREEN_QUESTIONS, {isLiveVoting:true});
     }
 
     render() {

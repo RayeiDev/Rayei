@@ -21,6 +21,7 @@ export const SCREEN_SURVEY_DETAIL='SurveyDetailScreen'
 export const SHARE_APP_LINK_IOS = 'https://itunes.apple.com/us/app/gonear/id1425381449?ls=1&mt=8';
 export const RATE_SHARE_APP_LINK_IOS = 'itms-apps://itunes.apple.com/us/app/id${1425381449}?mt=8.';
 export const RATE_SHARE_APP_LINK_ANDROID = 'https://play.google.com/store/apps/details?id=com.gonear';
+export const KEY_BOAD_TYPE_PHONE = 'phone-pad';
 export const KEY_BOAD_TYPE_NUMBER = 'number-pad';
 export const KEY_BOAD_TYPE_DEFAULT = 'default';
 export const KEY_NOFICATIONDATA = 'noficationData';

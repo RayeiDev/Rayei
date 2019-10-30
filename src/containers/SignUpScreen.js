@@ -27,11 +27,13 @@ class SignUpScreen extends BaseComponent {
 
     static propTypes = {
         userSignUp: PropTypes.func.isRequired,
+        shouldGoBack: PropTypes.bool.isRequired,
         loading: PropTypes.bool.isRequired,
+        responseMessage: PropTypes.string.isRequired,
 
     }
     goToLogin = () => {
-        this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
+        this.props.navigation.navigate(Constants.SCREEN_LOGIN, {});
     }
     callSignUp = () => {
         const { email, password, mobile } = this.state;
@@ -42,6 +44,11 @@ class SignUpScreen extends BaseComponent {
                 mobile: mobile,
                 is_company: true
             });
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.shouldGoBack !== this.props.shouldGoBack && this.props.shouldGoBack) {
+            this.showBackAlert(false, this.props.responseMessage)
         }
     }
 
@@ -60,7 +67,7 @@ class SignUpScreen extends BaseComponent {
                 <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: Colors.white }} showsVerticalScrollIndicator={false}>
                     <View style={{ height: 200, alignItems: 'center', justifyContent: 'center', }}>
 
-                        <View style={{ marginTop: Dimens.px_20, alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{ marginTop: Dimens.px_20, paddingHorizontal: Dimens.px_20, alignItems: 'center', justifyContent: 'center' }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <CommonText title={strings('join')}
                                     fontFamily={fonts.font_medium}
@@ -75,6 +82,7 @@ class SignUpScreen extends BaseComponent {
                             <CommonText title={strings('createAnAccount')}
                                 fontFamily={fonts.font_bold}
                                 textAlign={'center'}
+                                lineHeight={Dimens.px_20}
                                 fontSize={Dimens.px_15}
                                 color={Colors.textColor}></CommonText>
                         </View>
@@ -111,7 +119,7 @@ class SignUpScreen extends BaseComponent {
                                 textAlign={'center'}
                                 backgroundColor={Colors.white}
                                 color={Colors.textColor}
-                                keyboardType={Constants.KEY_BOAD_TYPE_DEFAULT}
+                                keyboardType={Constants.KEY_BOAD_TYPE_PHONE}
                                 placeholder={strings('mobile')}
                                 onChangeText={(value) => {
                                     this.setState({ mobile: value })
@@ -183,7 +191,10 @@ class SignUpScreen extends BaseComponent {
 }
 
 const mapStateToProps = (state) => ({
-    loading: state.loading
+    loading: state.loading,
+    shouldGoBack: state.shouldGoBack,
+    responseMessage: state.response.message,
+
 });
 
 const mapDispatchToProps = {

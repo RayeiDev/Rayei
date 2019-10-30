@@ -57,7 +57,6 @@ export default class QuestionScreen extends BaseComponent {
 
 
     render() {
-
         const { currentQuestionIndex, questionArray, isLiveVoting } = this.state;
         return (
             <KeyboardAvoidingView style={{ backgroundColor: Colors.lightGray, flex: 1, }} enabled>
@@ -80,11 +79,16 @@ export default class QuestionScreen extends BaseComponent {
                                 alignItems: 'center', justifyContent: 'center',
 
                             }}>
-                                <CommonText title={strings('liveVoting')}
-                                    fontFamily={fonts.font_bold}
-                                    fontSize={Dimens.px_20}
-                                    textTransform={'uppercase'}
-                                    color={Colors.colorAccent}></CommonText>
+                                {
+                                    this.props.navigation.state.params.isLiveVoting ?
+                                        <CommonText title={strings('liveVoting')}
+                                            fontFamily={fonts.font_bold}
+                                            fontSize={Dimens.px_20}
+                                            textTransform={'uppercase'}
+                                            color={Colors.colorAccent}></CommonText>
+                                        : null
+                                }
+
                                 <CommonText title={'IT Survey'}
                                     fontFamily={fonts.font_bold}
                                     fontSize={Dimens.px_20}

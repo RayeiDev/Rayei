@@ -13,8 +13,9 @@ import CommonTextInput from '../common/components/CommonTextInput'
 import CustomPBar from '../common/components/CustomPBar'
 import { userLogin } from '../actions'
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import * as Validations from '../util/Validations'
+import * as asyncStorage from '../util/asyncStorage'
 class LoginScreen extends BaseComponent {
 
     state = {
@@ -35,8 +36,9 @@ class LoginScreen extends BaseComponent {
     goToForgotPassword = () => {
         this.props.navigation.navigate(Constants.SCREEN_FORGOT_PASSWORD, {});
     }
+
     goToDashboard = () => {
-        this.props.navigation.navigate(Constants.SCREEN_DASHBOARD, {});
+        this.props.navigation.replace(Constants.SCREEN_DASHBOARD, {});
     }
 
     callLogin = () => {
@@ -51,22 +53,28 @@ class LoginScreen extends BaseComponent {
 
     callForgotPassword = () => {
         const { emailOrMobile, password } = this.state;
-            this.props.userLogin({
-                username: emailOrMobile,
-                password: password,
-            });
+        this.props.userLogin({
+            username: emailOrMobile,
+            password: password,
+        });
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.userData !== null) {
-            this.goToDashboard();
+        console.log('this.props.userData', this.props.userData);
+
+        if (this.props.userData && prevProps.userData !== this.props.userData) {
+            this.showToast(strings('loginSuccessfully'))
+            this.proceedFurther();
         }
     }
 
+    proceedFurther = async () => {
+        await asyncStorage.setItem(asyncStorage.KEY_USERDATA, JSON.stringify(this.props.userData.response))
+        this.goToDashboard();
+    };
 
     render() {
         return (
-
             <View style={{ backgroundColor: Colors.white, flex: 1, }}>
                 <CommonHeader
                     alignSelf='flex-start'

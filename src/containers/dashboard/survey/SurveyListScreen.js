@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, KeyboardAvoidingView, Image, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import BaseComponent from '../../../common/components/BaseComponent'
 import * as Colors from '../../../common/values/Colors'
 import * as Dimens from '../../../common/values/Dimens'
@@ -8,6 +8,7 @@ import CommonHeader from '../../../common/components/CommonHeader'
 import CommonText from '../../../common/components/CommonText'
 import { strings } from '../../../i18n/i18n';
 import RTLIcon from '../../../common/components/RTLIcon';
+import * as Constants from '../../../common/values/Constants'
 import { connect } from 'react-redux';
 import { getNews } from '../../../actions';
 
@@ -40,11 +41,10 @@ class SurveyListScreen extends BaseComponent {
         ],
     }
 
-    goToDetails = () => {
-        console.log('asdfsdfasdfsf');
-        this.props.getNews()
+    
+    goToSurveyDetail = () => {
+        this.props.navigation.navigate(Constants.SCREEN_SURVEY_DETAIL, {});
     }
-
 
     render() {
         const { Survey } = this.state;
@@ -73,7 +73,7 @@ class SurveyListScreen extends BaseComponent {
 
                         {Survey.map((data, key) => {
                             return (
-                                <View style={{ paddingBottom: Dimens.px_30, paddingTop: Dimens.px_30, justifyContent: 'flex-end' }} key={key}>
+                                <View  style={{ paddingBottom: Dimens.px_30, paddingTop: Dimens.px_30, justifyContent: 'flex-end' }} key={key}>
                                     <View style={{ padding: Dimens.px_10, backgroundColor: Colors.white, elevation: Dimens.px_5 }}>
                                         <CommonText
                                             title={data.name}
@@ -121,7 +121,7 @@ class SurveyListScreen extends BaseComponent {
                                         <RTLIcon
                                             source={require('../../../../assets/images/next_arrow.png')}
                                             padding={10}
-                                            iconPress={this.goToDetails}
+                                            iconPress={this.goToSurveyDetail}
                                             tintColor={Colors.white}
                                             iconWidth={Dimens.px_35}
                                             iconHeight={Dimens.px_25}
@@ -129,6 +129,7 @@ class SurveyListScreen extends BaseComponent {
                                         />
 
                                     </View>
+                                   
                                 </View>
                             )
                         })}

@@ -44,6 +44,9 @@ export default class Reward extends BaseComponent {
         ]
     }
 
+    goToSurveyList = () => {
+        this.props.navigation.navigate(Constants.SCREEN_SURVEY_LIST, {});
+    }
 
 
 
@@ -85,7 +88,7 @@ export default class Reward extends BaseComponent {
                                 <CommonButton
                                     key={index}
                                     fontFamily={fonts.font_medium}
-                                    //onButtonPress={this.goToLogin}
+                                    onButtonPress={this.goToSurveyList}
                                     backgroundColor={Colors.white}
                                     buttonWidth={'90%'}
                                     buttonHeight={Dimens.px_50}

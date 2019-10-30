@@ -28,9 +28,9 @@ export function* signUpRequest(action) {
 
         if (responseObj.statusCode === 200 || responseObj.statusCode === 201) {
             yield put(signUpSuccess(responseObj.data))
-            if (responseObj.data && (responseObj.data.message)) {
-                showMessage(true, responseObj.data.message)
-            }
+            // if (responseObj.data && (responseObj.data.message)) {
+            //     showMessage(true, responseObj.data.message)
+            // }
         } else {
             if (responseObj.data && (responseObj.data.message)) {
                 showMessage(true, responseObj.data.message)
@@ -52,9 +52,9 @@ export function* loginRequest(action) {
 
         if (responseObj.statusCode === 200 || responseObj.statusCode === 201) {
             yield put(loginSuccess(responseObj.data))
-            if (responseObj.data && (responseObj.data.message)) {
-                showMessage(true, responseObj.data.message)
-            }
+            // if (responseObj.data && (responseObj.data.message)) {
+            //     showMessage(true, responseObj.data.message)
+            // }
         } else {
             if (responseObj.data && (responseObj.data.message)) {
                 showMessage(true, responseObj.data.message)

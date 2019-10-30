@@ -84,16 +84,14 @@ export default class Dashboard extends BaseComponent {
         switch (this.state.selectedTabIndex) {
             case 0:
                 return (
-                    <LiveVotingScreen />
+                    <LiveVotingScreen navigation={this.props.navigation}/>
                 )
             case 1:
                 return (
-                    <Reward />
+                    <Reward navigation={this.props.navigation}/>
                 )
-            case 2:
-                return (
-                    <LiveVotingScreen />
-                )
+            
+               
 
         }
     }

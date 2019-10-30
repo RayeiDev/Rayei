@@ -32,8 +32,9 @@ export const onSignUpStarted = state =>
 export const onSignUpSuccess = (state, response) =>
     state.merge({
         loading: false,
+        shouldGoBack: true,
         response: state.response.merge({
-            message: response.message
+            message:response.response.message        
         })
     });
 export const onSignUpFailure = (state) =>
@@ -46,7 +47,10 @@ export const onSignUpFailure = (state) =>
 
 export const onLoginStarted = state =>
     state.merge({
-        loading: true
+        loading: true,
+        app: state.app.merge({
+            userData: initialState.userData
+        })
     });
 export const onLoginSuccess = (state, response) =>
     state.merge({
@@ -57,7 +61,10 @@ export const onLoginSuccess = (state, response) =>
     });
 export const onLoginFailure = (state) =>
     state.merge({
-        loading: false
+        loading: false,
+        app: state.app.merge({
+            userData: initialState.userData            
+        })
     });
 
 export const onForgotPasswordStarted = (state) =>

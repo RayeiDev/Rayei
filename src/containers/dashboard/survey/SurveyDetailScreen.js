@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView,TouchableOpacity } from 'react-native';
 import BaseComponent from '../../../common/components/BaseComponent'
 import * as Colors from '../../../common/values/Colors'
 import * as Dimens from '../../../common/values/Dimens'
@@ -7,7 +7,7 @@ import * as fonts from '../../../common/values/fonts'
 import CommonHeader from '../../../common/components/CommonHeader'
 import CommonText from '../../../common/components/CommonText'
 import { strings } from '../../../i18n/i18n';
-
+import * as Constants from '../../../common/values/Constants'
 
 
 export default class SurveyDetailScreen extends BaseComponent {
@@ -21,8 +21,8 @@ export default class SurveyDetailScreen extends BaseComponent {
         },
     }
 
-    goToDetails = () => {
-
+    goToQuestions = () => {
+        this.props.navigation.navigate(Constants.SCREEN_QUESTIONS, {isLiveVoting:false});
     }
 
 
@@ -159,7 +159,7 @@ export default class SurveyDetailScreen extends BaseComponent {
 
                             </View>
                         </View>
-                        <View style={{ backgroundColor: Colors.colorAccent, marginTop:Dimens.px_10,height: Dimens.px_50,justifyContent:'center' }}>
+                        <TouchableOpacity onPress={this.goToQuestions} style={{ backgroundColor: Colors.colorAccent, marginTop:Dimens.px_10,height: Dimens.px_50,justifyContent:'center' }}>
 
                         <CommonText
                                         title={strings('start')}
@@ -168,7 +168,7 @@ export default class SurveyDetailScreen extends BaseComponent {
                                         textTransform={'uppercase'}
                                         fontSize={Dimens.px_20}
                                         color={Colors.white} />
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

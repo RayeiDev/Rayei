@@ -27,7 +27,7 @@ import {store} from './src/Store';
 
 
 export default class App extends BaseComponent {
-
+ 
   render() {
     const AppContainer = createAppContainer(AppStackNavigator)
     return (
@@ -93,7 +93,7 @@ const AppStackNavigator = createStackNavigator({
     }
   },
 }, {
-  initialRouteName: Constants.SCREEN_LANGUAGE,
+  initialRouteName: Constants.SCREEN_DASHBOARD,
   transitionConfig: () => ({
     transitionSpec: {
       duration: 300,

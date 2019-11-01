@@ -99,7 +99,10 @@ export const METHOD_TYPE_PUT = 'PUT';
 
 export const BASE_URL = 'http://ec2-13-59-72-71.us-east-2.compute.amazonaws.com:8000/v1/';
 export const AUTH_URL = BASE_URL+'auth/';
+export const SURVEY_URL = BASE_URL+'survey/';
 export const API_SIGNUP = AUTH_URL+'signup/';
 export const API_LOGIN = AUTH_URL+'login/';
 export const API_FORGOT_PASSWORD = AUTH_URL+'password/reset_request/';
 export const API_LOOKUP = BASE_URL+'lookup';
+export const API_SURVEY = SURVEY_URL+'surveys/?';
+export const API_SURVEY_DETAIL = SURVEY_URL+'surveys/';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import BaseComponent from '../common/components/BaseComponent'
 import * as Dimens from '../common/values/Dimens'
@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import * as Validations from '../util/Validations'
 import * as asyncStorage from '../util/asyncStorage'
 class LoginScreen extends BaseComponent {
-
+  
     state = {
         emailOrMobile: '',
         password: '',

@@ -25,12 +25,11 @@ class Reward extends BaseComponent {
         lookUpRequest: PropTypes.func.isRequired,
         loading: PropTypes.bool.isRequired,
         lookUpData: PropTypes.object,
-
     }
 
     async componentDidMount() {
-       const userCountry = await asyncStorage.getItem(asyncStorage.KEY_COUNTRY);
-        this.setState({country:userCountry})
+        const userCountry = await asyncStorage.getItem(asyncStorage.KEY_COUNTRY);
+        this.setState({ country: userCountry })
         this.props.lookUpRequest()
     }
 
@@ -39,8 +38,8 @@ class Reward extends BaseComponent {
             this.setState({ survey_categories: this.props.lookUpData.response.survey_categories })
         }
     }
-    goToSurveyList = () => {
-        this.props.navigation.navigate(Constants.SCREEN_SURVEY_LIST, {});
+    goToSurveyList = (item) => {
+        this.props.navigation.navigate(Constants.SCREEN_SURVEY_LIST, { categoryId:item.id, category:item.name});
     }
 
 
@@ -74,7 +73,7 @@ class Reward extends BaseComponent {
                                 index === 0 ?
                                     (<CommonButton key={index}
                                         fontFamily={fonts.font_medium}
-                                        onButtonPress={this.goToSurveyList}
+                                        onButtonPress={() => this.goToSurveyList(item)}
                                         backgroundColor={Colors.colorAccent}
                                         buttonWidth={'90%'}
                                         buttonHeight={Dimens.px_50}
@@ -86,7 +85,7 @@ class Reward extends BaseComponent {
                                         <CommonButton key={index}
                                             key={index}
                                             fontFamily={fonts.font_medium}
-                                            onButtonPress={this.goToSurveyList}
+                                            onButtonPress={() => this.goToSurveyList(item)}
                                             backgroundColor={Colors.white}
                                             buttonWidth={'90%'}
                                             buttonHeight={Dimens.px_50}
@@ -123,3 +122,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Reward);
+
+

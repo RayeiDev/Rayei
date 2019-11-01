@@ -10,6 +10,7 @@ export const px_13 = 13;
 export const px_15 = 15;
 export const px_20 = 20;
 export const px_25 = 25;
+export const px_27 = 27;
 export const px_30 = 30;
 export const px_35 = 35;
 export const px_40 = 40;

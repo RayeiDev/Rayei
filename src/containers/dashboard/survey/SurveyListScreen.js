@@ -9,8 +9,10 @@ import CommonText from '../../../common/components/CommonText'
 import { strings } from '../../../i18n/i18n';
 import RTLIcon from '../../../common/components/RTLIcon';
 import * as Constants from '../../../common/values/Constants'
+import CustomPBar from '../../../common/components/CustomPBar'
+import { surveyListRequest } from '../../../actions'
 import { connect } from 'react-redux';
-import { getNews } from '../../../actions';
+import PropTypes from 'prop-types';
 
 
 
@@ -40,14 +42,24 @@ class SurveyListScreen extends BaseComponent {
             },
         ],
     }
+    static propTypes = {
+        surveyListRequest: PropTypes.func.isRequired,
+        loading: PropTypes.bool.isRequired,
+        surveyList: PropTypes.array,
+    }
 
-    
-    goToSurveyDetail = () => {
-        this.props.navigation.navigate(Constants.SCREEN_SURVEY_DETAIL, {});
+    componentDidMount() {
+        const requestUrl = `${Constants.API_SURVEY}category__id=${this.props.navigation.getParam('categoryId')}`
+        this.props.surveyListRequest(requestUrl)
+    }
+
+    goToSurveyDetail = (id) => {
+        this.props.navigation.navigate(Constants.SCREEN_SURVEY_DETAIL, {surveyId:id});
     }
 
     render() {
-        const { Survey } = this.state;
+        const { loading, surveyList } = this.props;
+        console.log('render', surveyList);
         return (
             <View style={{ backgroundColor: Colors.lightGray, flex: 1 }}>
                 <CommonHeader
@@ -64,16 +76,16 @@ class SurveyListScreen extends BaseComponent {
                         paddingBottom: Dimens.px_50, paddingTop: Dimens.px_20
                     }}>
 
-                        <CommonText title={'Education'}
+                        <CommonText title={this.props.navigation.getParam('category')}
                             textAlign={'center'}
                             fontFamily={fonts.font_bold}
                             fontSize={Dimens.px_25}
                             textTransform={'uppercase'}
                             color={Colors.colorAccent}></CommonText>
 
-                        {Survey.map((data, key) => {
+                        {surveyList ? (surveyList.map((data, key) => {
                             return (
-                                <View  style={{ paddingBottom: Dimens.px_30, paddingTop: Dimens.px_30, justifyContent: 'flex-end' }} key={key}>
+                                <View style={{ paddingBottom: Dimens.px_30, paddingTop: Dimens.px_30, justifyContent: 'flex-end' }} key={key}>
                                     <View style={{ padding: Dimens.px_10, backgroundColor: Colors.white, elevation: Dimens.px_5 }}>
                                         <CommonText
                                             title={data.name}
@@ -89,13 +101,20 @@ class SurveyListScreen extends BaseComponent {
                                                     textAlign={'left'}
                                                     fontSize={Dimens.px_15}
                                                     color={Colors.colorAccent} />
-                                                <CommonText
-                                                    title={data.prizes.join()}
-                                                    fontFamily={fonts.font_medium}
-                                                    textAlign={'left'}
-                                                    numberOfLines={1}
-                                                    fontSize={Dimens.px_15}
-                                                    color={Colors.textColor} />
+                                                <View style={{ flexDirection: 'row' }}>
+                                                    {data.prizes ? (data.prizes.map((prize, key) => {
+                                                        return (<CommonText
+                                                            key={key}
+                                                            title={prize.name + (key === data.prizes.length - 1 ? '' : ', ')}
+                                                            fontFamily={fonts.font_medium}
+                                                            textAlign={'left'}
+                                                            numberOfLines={1}
+                                                            fontSize={Dimens.px_15}
+                                                            color={Colors.textColor} />)
+
+                                                    })) : null}
+
+                                                </View>
                                             </View>
                                             <View style={{ flex: .3, justifyContent: 'flex-end' }} >
                                                 <CommonText
@@ -121,7 +140,7 @@ class SurveyListScreen extends BaseComponent {
                                         <RTLIcon
                                             source={require('../../../../assets/images/next_arrow.png')}
                                             padding={10}
-                                            iconPress={this.goToSurveyDetail}
+                                            iconPress={()=>this.goToSurveyDetail(data.id)}
                                             tintColor={Colors.white}
                                             iconWidth={Dimens.px_35}
                                             iconHeight={Dimens.px_25}
@@ -129,12 +148,13 @@ class SurveyListScreen extends BaseComponent {
                                         />
 
                                     </View>
-                                   
+
                                 </View>
                             )
-                        })}
+                        })) : null}
                     </View>
                 </ScrollView>
+                <CustomPBar showProgress={loading} />
             </View>
         )
     }
@@ -142,8 +162,16 @@ class SurveyListScreen extends BaseComponent {
 
 
 }
+const mapStateToProps = (state) => ({
+    loading: state.survey.loading,
+    surveyList: state.survey.surveyList,
+});
+
 const mapDispatchToProps = {
-    getNews: getNews,
+    surveyListRequest,
 };
-SurveyListScreen = connect(null, mapDispatchToProps)(SurveyListScreen);
-export default SurveyListScreen;
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SurveyListScreen);

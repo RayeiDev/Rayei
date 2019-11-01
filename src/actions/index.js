@@ -15,6 +15,14 @@ import {
     LOOKUP_STARTED,
     LOOKUP_SUCCESS,
     LOOKUP_FAILURE,
+    SURVEY_LIST_REQUEST,
+    SURVEY_LIST_STARTED,
+    SURVEY_LIST_SUCCESS,
+    SURVEY_LIST_FAILURE,
+    SURVEY_DETAIL_REQUEST,
+    SURVEY_DETAIL_STARTED,
+    SURVEY_DETAIL_SUCCESS,
+    SURVEY_DETAIL_FAILURE,
 } from '../constants';
 import { createAction } from '../util/reduxUtil'
 
@@ -54,3 +62,21 @@ export const lookUpSuccess = (response) =>
     createAction(LOOKUP_SUCCESS, { response });
 export const lookUpFailure = (response) =>
     createAction(LOOKUP_FAILURE, { response });
+
+export const surveyListRequest = (requestUrl) =>
+    createAction(SURVEY_LIST_REQUEST,{requestUrl});
+export const surveyListStarted = () =>
+    createAction(SURVEY_LIST_STARTED);
+export const surveyListSuccess = (response) =>
+    createAction(SURVEY_LIST_SUCCESS, { response });
+export const surveyListFailure = (response) =>
+    createAction(SURVEY_LIST_FAILURE, { response });
+
+export const surveyDetailRequest = (requestUrl) =>
+    createAction(SURVEY_DETAIL_REQUEST,{requestUrl});
+export const surveyDetailStarted = () =>
+    createAction(SURVEY_DETAIL_STARTED);
+export const surveyDetailSuccess = (response) =>
+    createAction(SURVEY_DETAIL_SUCCESS, { response });
+export const surveyDetailFailure = (response) =>
+    createAction(SURVEY_DETAIL_FAILURE, { response });

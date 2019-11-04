@@ -4,7 +4,6 @@ import BaseComponent from '../../common/components/BaseComponent'
 import * as Colors from '../../common/values/Colors'
 import * as Dimens from '../../common/values/Dimens'
 import * as fonts from '../../common/values/fonts'
-import * as Constants from '../../common/values/Constants'
 import CommonButton from '../../common/components/CommonButton'
 import CommonHeader from '../../common/components/CommonHeader'
 import SelectedBarComponent from '../../common/components/SelectedBarComponent'
@@ -12,10 +11,10 @@ import CommonText from '../../common/components/CommonText'
 import SingleChoiceQuestion from '../../containers/dashboard/questions/SingleChoiceQuestion'
 import MultipleSelectionQuestion from '../../containers/dashboard/questions/MultipleSelectionQuestion'
 import RatingQuestion from '../../containers/dashboard/questions/RatingQuestion'
-import RangeQuestion from '../../containers/dashboard/questions/RangeQuestion'
+import RangeQuestionNew from '../../containers/dashboard/questions/RangeQuestionNew'
 import CommentQuestion from '../../containers/dashboard/questions/CommentQuestion'
 import { strings } from '../../i18n/i18n';
-
+import EmojiRatingQuestion from './questions/EmojiRatingQuestion';
 
 export default class QuestionScreen extends BaseComponent {
 
@@ -43,6 +42,11 @@ export default class QuestionScreen extends BaseComponent {
             },
             {
                 questionType: 5,
+                question: 'What is your favourite number?',
+                answers: [],
+            },
+            {
+                questionType: 6,
                 question: 'What is your favourite number?',
                 answers: [],
             },
@@ -152,7 +156,16 @@ export default class QuestionScreen extends BaseComponent {
             case 4:
                 return (<RatingQuestion question={questionArray[currentQuestionIndex]} />)
             case 5:
-                return (<RangeQuestion question={questionArray[currentQuestionIndex]} />)
+                return (<RangeQuestionNew question={questionArray[currentQuestionIndex]} />)
+            case 6:
+                return (
+                    <EmojiRatingQuestion
+                        question={questionArray[currentQuestionIndex]}
+                        onSelection={selected => {
+                            /*Use the Updated Rating Value here*/
+                        }}
+                    />
+                );
         }
     }
 
